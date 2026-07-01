@@ -34,6 +34,7 @@ export const uploadResume = async (
         console.log("Resume Text : ", extractedText)
 
         const analysis = await analyzeResume(extractedText)
+        console.log("Analysis Text : ", analysis)
         const savedAnalysis = await ResumeAnalysis.create({
             resume: resume._id,
             atsScore: analysis.atsScore,

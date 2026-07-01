@@ -10,6 +10,7 @@ export const register = asyncHandler(async (req: Request, res: Response) => {
   const user = await registerUser(data);
 
   const token = user.generateAccessToken();
+  
 
   res.cookie("token", token, {
     httpOnly: true,
@@ -37,12 +38,17 @@ export const login = asyncHandler(async (req, res) => {
     const token =
         user.generateAccessToken();
 
+        console.log("Setting Cookie")
+
     res.cookie("token", token, {
-        httpOnly: true,
-        secure: false,
-        sameSite: "lax",
-        maxAge: 7 * 24 * 60 * 60 * 1000
-    });
+    httpOnly: true,
+    secure: false,
+    sameSite: "lax",
+    path: "/",
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+});
+
+    console.log("Cookie-set ")
 
     return res.status(200).json(
         new ApiResponse(
@@ -65,11 +71,12 @@ export const login = asyncHandler(async (req, res) => {
 
 export const logout = asyncHandler(async (req, res) => {
 
-    res.clearCookie("token", {
-        httpOnly: true,
-        secure: false,
-        sameSite: "lax"
-    });
+   res.clearCookie("token", {
+    httpOnly: true,
+    secure: false,
+    sameSite: "lax",
+    path: "/",
+});
 
     return res.status(200).json(
         new ApiResponse(

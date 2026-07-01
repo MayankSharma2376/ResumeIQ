@@ -1,3 +1,6 @@
+import dotenv from "dotenv"
+dotenv.config()
+
 import express from "express"
 import cors from "cors"
 import helmet from "helmet"
@@ -8,6 +11,7 @@ import { success } from "zod"
 import authRoutes from "../routes/auth.routes"
 import resumeRoutes from "../routes/resume.routes"
 
+
 const app = express()
 
 app.use(
@@ -16,6 +20,8 @@ app.use(
         credentials: true
     })
 )
+
+console.log("CORS Origin: ", process.env.CLIENT_URL)
 
 app.use(helmet())
 app.use(compression())
