@@ -3,6 +3,10 @@ import Resume from "../models/resume.model";
 import {extractTextFromPDF} from "../services/pdf.service"
 import { analyzeResume } from "../services/ai.service"
 import ResumeAnalysis from "../models/resumeAnalysis.model"
+import { getLatestResumeService } from "../services/resume.service";
+import asyncHandler from "../utils/asyncHandler";
+import ApiResponse from "../utils/ApiResponse";
+import { getResumeHistoryService } from "../services/resume.service";
 export const uploadResume = async (
     req: Request,
     res: Response
@@ -181,3 +185,59 @@ export const deleteResume = async (
 
     }
 };
+
+export const getLatestResume = asyncHandler(async (req, res) => {
+
+    const resume = await Resume.findOne({
+        user: req.user!._id
+    }).sort({ createdAt: -1 });
+
+    if (!resume) {
+        return res.status(200).json({
+            success: true,
+            data: null
+        });
+    }
+
+    const analysis = await ResumeAnalysis.findOne({
+        resume: resume._id
+    });
+
+    return res.status(200).json({
+        success: true,
+        data: {
+            resume,
+            analysis
+        }
+    });
+
+});
+
+
+export const getResumeHistory = asyncHandler(
+
+    async (req, res) => {
+
+        const history = await getResumeHistoryService(
+
+            req.user!._id.toString()
+
+        );
+
+        return res.status(200).json(
+
+            new ApiResponse(
+
+                true,
+
+                "Resume history fetched successfully",
+
+                history
+
+            )
+
+        );
+
+    }
+
+);

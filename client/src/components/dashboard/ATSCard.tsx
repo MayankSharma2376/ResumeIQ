@@ -8,9 +8,9 @@ export default function ATSCard({ score }: Props) {
     return (
         <DashboardCard title="ATS Score">
 
-            <div className="text-center">
+            <div className="text-center ">
 
-                <h1 className="text-6xl font-bold text-violet-500">
+                <h1 className="text-6xl font-bold  text-violet-500">
                     {score}
                 </h1>
 

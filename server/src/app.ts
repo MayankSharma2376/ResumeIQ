@@ -10,8 +10,8 @@ import morgan from "morgan"
 import { success } from "zod"
 import authRoutes from "../routes/auth.routes"
 import resumeRoutes from "../routes/resume.routes"
-
-
+import jobRoutes from "../routes/job.routes"
+import dashboardRoutes from "../routes/dashboard.routes"
 const app = express()
 
 app.use(
@@ -38,6 +38,8 @@ app.use(express.urlencoded(
 
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/resume", resumeRoutes);
+app.use("/api/v1/job", jobRoutes)
+app.use("/api/v1/dashboard", dashboardRoutes)
 
 
 app.get("/", (req, res)=>{

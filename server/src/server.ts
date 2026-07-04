@@ -8,6 +8,7 @@ dotenv.config({
 })
 
 console.log("Client Url : ", process.env.CLIENT_URL)
+console.log("Gemini API Key : ", process.env.GEMINI_API_KEY)
 
 
 import connectDB from "../config/database"

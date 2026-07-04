@@ -39,7 +39,7 @@ export const AuthProvider = ({
         refreshUser().finally(()=>{
             setLoading(false)
         })
-    })
+    }, [])
 
 
   

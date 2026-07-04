@@ -44,39 +44,23 @@ export default function ATSScoreCard({ score }: Props) {
 
             </div>
 
-            <div className="w-72 h-72 mx-auto">
-
-                <CircularProgressbarWithChildren
-                    value={score}
-                    strokeWidth={8}
-                    styles={buildStyles({
-
-                        trailColor: "#1F2937",
-
-                        pathColor: "#8B5CF6"
-
-                    })}
-                >
-
-                    <div className="text-center">
-
-                        <h1 className="text-7xl font-bold">
-
-                            {score}
-
-                        </h1>
-
-                        <p className="text-gray-400">
-
-                            /100
-
-                        </p>
-
-                    </div>
-
-                </CircularProgressbarWithChildren>
-
+            <div className="flex items-center justify-center w-full">
+    <div className="w-64 h-64">
+        <CircularProgressbarWithChildren
+            value={score}
+            strokeWidth={8}
+            styles={buildStyles({
+                trailColor: "#1F2937",
+                pathColor: "#8B5CF6",
+            })}
+        >
+            <div className="text-center">
+                <h1 className="text-7xl font-bold">{score}</h1>
+                <p className="text-gray-400">/100</p>
             </div>
+        </CircularProgressbarWithChildren>
+    </div>
+</div>
 
             <div className="mt-8 flex justify-center">
 

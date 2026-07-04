@@ -4,13 +4,16 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 
 import Dashboard from "../pages/Dashboard";
-import UploadPage from "../pages/UploadPage";
-import HistoryPage from "../pages/HistoryPage";
-import ProfilePage from "../pages/ProfilePage";
+import UploadPage from "../pages/Upload";
+
+import Profile from "../pages/Profile";
+import ResumeHistory from "../pages/ResumeHistory"
 
 import ProtectedRoute from "./ProtectedRoute";
 import DashboardLayout from "../layouts/DashboardLayout";
-
+import ResumeDetails from "../pages/ResumeDetails";
+import JobMatcher from "../pages/JobMatcher";
+import History from "../pages/ResumeHistory";
 export default function AppRouter() {
     return (
         <BrowserRouter>
@@ -31,15 +34,36 @@ export default function AppRouter() {
                     }
                 >
 
+                <Route
+    path="/job-match"
+    element={
+        <ProtectedRoute>
+            <JobMatcher />
+        </ProtectedRoute>
+    }
+/>    
+
+
+
+
+
                     <Route path="/" element={<Navigate to="/dashboard" replace />} />
 
                     <Route path="/dashboard" element={<Dashboard />} />
 
                     <Route path="/upload" element={<UploadPage />} />
+                    
 
-                    <Route path="/history" element={<HistoryPage />} />
+                  <Route path="/history" element={
+                    <ProtectedRoute>
+                        <ResumeHistory/>
+                    </ProtectedRoute>
+                  }/>
 
-                    <Route path="/profile" element={<ProfilePage />} />
+                    <Route path="/profile" element={<Profile />} />
+                    <Route path="/resume/:id" element={<ProtectedRoute>
+                        <ResumeDetails/>
+                    </ProtectedRoute>}/>
 
                 </Route>
 

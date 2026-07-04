@@ -8,8 +8,25 @@ import {
 
 import NavItem from "./NavItem";
 import logo from "../../assets/logo.png"
+import { BriefcaseBusiness } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import { logoutUser } from "../../services/auth.service";
+import { useAuth } from "../../context/AuthContext";
 
 export default function Sidebar() {
+    const navigate = useNavigate()
+    const {setUser} = useAuth()
+    const handleLogout = async()=>{
+        try{
+            await logoutUser()
+            setUser(null)
+            toast.success("Logged out successfully")
+            navigate("/login")
+        }catch(err){
+            toast.error("Logout failed")
+        }
+    }
 
     return (
 
@@ -78,6 +95,9 @@ export default function Sidebar() {
             <div className="border-t border-slate-800 p-5">
 
                 <button
+                    onClick={handleLogout}
+
+                
                     className="w-full flex items-center gap-3 rounded-xl bg-red-500/10 px-4 py-3 text-red-400 hover:bg-red-500/20 transition"
                 >
 

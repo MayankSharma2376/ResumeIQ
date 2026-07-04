@@ -9,7 +9,12 @@ import { AuthProvider } from './context/AuthContext.tsx'
 createRoot(document.getElementById('root')!).render(
 <StrictMode>
 <AuthProvider>
-  <Toaster position='top-right'/>
+  <Toaster position='top-right' toastOptions={{
+    style: {
+      background: "#111827",
+      color: "#fff"
+    }
+  }}/>
   <App/>
 </AuthProvider>
 </StrictMode>
