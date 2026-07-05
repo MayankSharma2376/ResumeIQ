@@ -14,12 +14,23 @@ import jobRoutes from "../routes/job.routes"
 import dashboardRoutes from "../routes/dashboard.routes"
 const app = express()
 
+const allowedOrigins = [
+  "http://localhost:5173",
+  process.env.CLIENT_URL!,
+];
+
 app.use(
-    cors({
-        origin: process.env.CLIENT_URL,
-        credentials: true
-    })
-)
+  cors({
+    origin(origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  })
+);
 
 console.log("CORS Origin: ", process.env.CLIENT_URL)
 
