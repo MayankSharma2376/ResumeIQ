@@ -76,10 +76,11 @@ const userSchema = new Schema(
   }
 );
 
-userSchema.pre("save", async function () {
-  if (!this.isModified("password")) return;
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
 
   this.password = await bcrypt.hash(this.password, 10);
+  next()
 });
 
 userSchema.methods.comparePassword = function (password: string) {
@@ -87,16 +88,18 @@ userSchema.methods.comparePassword = function (password: string) {
 };
 
 userSchema.methods.generateAccessToken = function () {
-  return jwt.sign(
-    {
-      userId: this._id,
-      role: this.role,
-    },
-    process.env.JWT_SECRET!,
-    {
-      expiresIn: process.env.JWT_EXPIRES_IN || "7d",
-    }
-  );
+const secret = process.env.JWT_SECRET as string;
+
+return jwt.sign(
+  {
+    userId: this._id,
+    role: this.role,
+  },
+  secret,
+  {
+    expiresIn: "7d",
+  }
+);
 };
 
 export default mongoose.model<IUser>("User", userSchema);

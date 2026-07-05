@@ -7,6 +7,7 @@ import { getLatestResumeService } from "../services/resume.service";
 import asyncHandler from "../utils/asyncHandler";
 import ApiResponse from "../utils/ApiResponse";
 import { getResumeHistoryService } from "../services/resume.service";
+import { success } from "zod";
 export const uploadResume = async (
     req: Request,
     res: Response
@@ -104,7 +105,13 @@ export const getResumeAnalysis = async (
 ) => {
     try {
 
-        const { id } = req.params;
+        const id = req.params.id 
+        if (!id) {
+    return res.status(400).json({
+        success: false,
+        message: "Resume id is required"
+    });
+}
 
         const resume = await Resume.findOne({
             _id: id,
@@ -147,7 +154,13 @@ export const deleteResume = async (
 ) => {
     try {
 
-        const { id } = req.params;
+        const id = req.params.id 
+        if(!id){
+            return res.status(400).json({
+                success: false,
+                message: "Resume id is required"
+            });
+        }
 
         const resume = await Resume.findOne({
             _id: id,
