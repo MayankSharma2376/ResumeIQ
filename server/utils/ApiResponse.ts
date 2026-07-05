@@ -1,7 +1,7 @@
-class ApiResponse<T> {
+class ApiResponse<T = any> {
   success: boolean;
   message: string;
-  data?: T;
+  data: T | undefined;
 
   constructor(success: boolean, message: string, data?: T) {
     this.success = success;
