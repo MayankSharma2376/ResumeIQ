@@ -4,6 +4,9 @@ import { registerSchema, loginSchema } from "../validators/auth.validator";
 import { registerUser, loginUser } from "../services/auth.service";
 import ApiResponse from "../utils/ApiResponse";
 
+const isProduction = process.env.NODE_ENV === "production"
+
+
 export const register = asyncHandler(async (req: Request, res: Response) => {
   const data = registerSchema.parse(req.body);
 
@@ -14,8 +17,8 @@ export const register = asyncHandler(async (req: Request, res: Response) => {
 
   res.cookie("token", token, {
     httpOnly: true,
-    secure: false,
-    sameSite: "lax",
+    secure: isProduction,
+    sameSite: isProduction ? "none" : "lax",
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
 
@@ -42,8 +45,8 @@ export const login = asyncHandler(async (req, res) => {
 
     res.cookie("token", token, {
     httpOnly: true,
-    secure: false,
-    sameSite: "lax",
+    secure: isProduction,
+    sameSite: isProduction ? "none" : "lax",
     path: "/",
     maxAge: 7 * 24 * 60 * 60 * 1000,
 });
@@ -73,8 +76,8 @@ export const logout = asyncHandler(async (req, res) => {
 
    res.clearCookie("token", {
     httpOnly: true,
-    secure: false,
-    sameSite: "lax",
+    secure: isProduction,
+    sameSite: isProduction ? "none" : "lax",
     path: "/",
 });
 
