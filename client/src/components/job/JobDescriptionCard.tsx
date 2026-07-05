@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { BriefcaseBusiness, Sparkles } from "lucide-react";
 import DashboardCard from "../ui/DashboardCard";
-import { matchJob } from "../../services/job.service";
+import { matchResume } from "../../services/job.service";
 import toast from "react-hot-toast";
 
 type Props = {
@@ -24,7 +24,7 @@ export default function JobDescriptionCard({setResult, }: Props) {
 
             setLoading(true);
 
-            const res = await matchJob({
+            const res = await matchResume({
                 jobDescription
             });
 

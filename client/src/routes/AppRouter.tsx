@@ -12,8 +12,8 @@ import NotFound from "../pages/NotFound";
 import ProtectedRoute from "./ProtectedRoute";
 import DashboardLayout from "../layouts/DashboardLayout";
 import ResumeDetails from "../pages/ResumeDetails";
-import JobMatcher from "../pages/JobMatcher";
-import History from "../pages/ResumeHistory";
+
+
 export default function AppRouter() {
     return (
         <BrowserRouter>
@@ -34,14 +34,8 @@ export default function AppRouter() {
                     }
                 >
 
-                <Route
-    path="/job-match"
-    element={
-        <ProtectedRoute>
-            <JobMatcher />
-        </ProtectedRoute>
-    }
-/>    
+          
+
 
 
 
