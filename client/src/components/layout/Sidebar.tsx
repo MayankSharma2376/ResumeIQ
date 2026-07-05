@@ -8,7 +8,7 @@ import {
 
 import NavItem from "./NavItem";
 import logo from "../../assets/logo.png"
-import { BriefcaseBusiness } from "lucide-react";
+
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { logoutUser } from "../../services/auth.service";

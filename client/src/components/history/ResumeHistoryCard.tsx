@@ -1,4 +1,4 @@
-import { Calendar, FileText, Trash2, Eye } from "lucide-react";
+import { Calendar, Trash2, Eye } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 interface Props {
