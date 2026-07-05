@@ -8,7 +8,7 @@ import UploadPage from "../pages/Upload";
 
 import Profile from "../pages/Profile";
 import ResumeHistory from "../pages/ResumeHistory"
-
+import NotFound from "../pages/NotFound";
 import ProtectedRoute from "./ProtectedRoute";
 import DashboardLayout from "../layouts/DashboardLayout";
 import ResumeDetails from "../pages/ResumeDetails";
@@ -64,6 +64,10 @@ export default function AppRouter() {
                     <Route path="/resume/:id" element={<ProtectedRoute>
                         <ResumeDetails/>
                     </ProtectedRoute>}/>
+
+                    <Route path="*" element={<NotFound/>}/>
+
+
 
                 </Route>
 

@@ -58,8 +58,8 @@ export default function Dashboard() {
     }, []);
 
 
-    console.log("resumeData State : ", resumeData)
-    console.log("stats state : ", stats)
+    // console.log("resumeData State : ", resumeData)
+    // console.log("stats state : ", stats)
 
 
 

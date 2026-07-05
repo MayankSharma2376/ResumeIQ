@@ -91,7 +91,7 @@ export default function JobMatch() {
 
                 disabled={loading}
 
-                className="bg-violet-600 hover:bg-violet-700 rounded-xl px-6 py-3"
+               className="w-full md:w-auto px-8 py-3 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 font-semibold transition-all"
 
             >
 
@@ -111,24 +111,61 @@ export default function JobMatch() {
 
             </button>
 
+            {!result && !loading && (
+
+<div className="bg-zinc-900 rounded-2xl p-12 text-center border border-zinc-800">
+
+    <div className="text-7xl">
+        💼
+    </div>
+
+    <h2 className="text-3xl font-bold mt-6">
+        Analyze Job Description
+    </h2>
+
+    <p className="text-gray-400 mt-4 max-w-xl mx-auto">
+
+        Paste any job description above and ResumeIQ AI
+        will compare it with your latest uploaded resume.
+
+    </p>
+
+</div>
+
+)}
+
+
+
+
+
             {result && (
 
 <div className="space-y-6">
 
-    <div className="bg-zinc-900 rounded-xl p-6">
+    <div className="bg-gradient-to-br from-violet-600 to-indigo-700 rounded-2xl p-8 shadow-xl">
 
-        <h2 className="text-xl font-bold mb-4">
-            Match Score
-        </h2>
+    <h2 className="text-xl font-bold text-center">
+        🎯 Resume Match Score
+    </h2>
 
-        <div className="text-6xl font-bold text-violet-500">
+    <div className="text-center mt-8">
+
+        <div className="text-7xl font-extrabold">
             {result.matchScore}%
         </div>
 
-        <div className="w-full bg-zinc-700 h-3 rounded-full mt-6">
+        <p className="text-violet-100 mt-2">
+            ATS Compatibility
+        </p>
+
+    </div>
+
+    <div className="mt-8">
+
+        <div className="w-full h-4 rounded-full bg-white/20 overflow-hidden">
 
             <div
-                className="bg-violet-500 h-3 rounded-full"
+                className="h-full bg-green-400 transition-all duration-700"
                 style={{
                     width: `${result.matchScore}%`
                 }}
@@ -137,6 +174,8 @@ export default function JobMatch() {
         </div>
 
     </div>
+
+</div>
 
     <div className="grid md:grid-cols-2 gap-6">
 
@@ -152,7 +191,7 @@ export default function JobMatch() {
 
                     <span
                         key={skill}
-                        className="bg-green-600 px-3 py-2 rounded-full"
+                        className="bg-green-500/20 border border-green-500 text-green-300 px-4 py-2 rounded-full text-sm font-medium"
                     >
                         {skill}
                     </span>
@@ -175,7 +214,8 @@ export default function JobMatch() {
 
                     <span
                         key={skill}
-                        className="bg-red-600 px-3 py-2 rounded-full"
+                        className="bg-red-500/20 border border-red-500 text-red-300 px-4 py-2 rounded-full text-sm font-medium"
+                      
                     >
                         {skill}
                     </span>
@@ -196,19 +236,28 @@ export default function JobMatch() {
 
         </h2>
 
-        <ul className="space-y-3">
+        <div className="space-y-4">
 
-            {result.suggestions.map((item: string, index: number) => (
+    {result.suggestions.map((item: string, index: number) => (
 
-                <li key={index}>
+        <div
+            key={index}
+            className="bg-zinc-800 border border-zinc-700 rounded-xl p-4 flex gap-3"
+        >
 
-                    • {item}
+            <span className="text-yellow-400 text-xl">
+                💡
+            </span>
 
-                </li>
+            <p className="text-gray-300">
+                {item}
+            </p>
 
-            ))}
+        </div>
 
-        </ul>
+    ))}
+
+</div>
 
     </div>
 

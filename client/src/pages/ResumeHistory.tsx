@@ -7,11 +7,14 @@ import {
   deleteResume,
 } from "../services/resume.service";
 import ResumeHistorySkeleton from "../components/history/ResumeHistorySkeleton";
+import ConfirmModal from "../components/common/ConfirmModal";
 
 export default function ResumeHistory() {
   const [resumes, setResumes] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
+  const [selectedResume, setSelectedResume] = useState<string | null>(null)
+  const [deleteLoading, setDeleteLoading] = useState(false)
 
   useEffect(() => {
     loadHistory();
@@ -34,26 +37,35 @@ export default function ResumeHistory() {
     }
   }
 
-  async function handleDelete(id: string) {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this resume?"
-    );
+  async function handleDelete() {
 
-    if (!confirmDelete) return;
+    if (!selectedResume) return;
 
     try {
-      await deleteResume(id);
 
-      toast.success("Resume deleted");
+        setDeleteLoading(true);
 
-      setResumes((prev) =>
-        prev.filter((resume) => resume._id !== id)
-      );
+        await deleteResume(selectedResume);
+
+        toast.success("Resume deleted");
+
+        setResumes(prev =>
+            prev.filter(r => r._id !== selectedResume)
+        );
+
+        setSelectedResume(null);
+
     } catch (err) {
-      console.error(err);
-      toast.error("Delete failed");
+
+        toast.error("Delete failed");
+
+    } finally {
+
+        setDeleteLoading(false);
+
     }
-  }
+
+}
 
   const filteredResumes = useMemo(() => {
 
@@ -129,11 +141,24 @@ export default function ResumeHistory() {
             <ResumeHistoryCard
               key={resume._id}
               resume={resume}
-              onDelete={handleDelete}
+              onDelete={(id)=> setSelectedResume(id)}
             />
           ))}
         </div>
       )}
+
+
+      <ConfirmModal
+    open={selectedResume !== null}
+    title="Delete Resume"
+    message="This action cannot be undone. Are you sure you want to permanently delete this resume?"
+    loading={deleteLoading}
+    onCancel={() => setSelectedResume(null)}
+    onConfirm={handleDelete}
+/>
+
+
+
     </div>
   );
 }

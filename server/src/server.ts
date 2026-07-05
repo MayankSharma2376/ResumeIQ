@@ -7,8 +7,7 @@ dotenv.config({
     path: "./.env"
 })
 
-console.log("Client Url : ", process.env.CLIENT_URL)
-console.log("Gemini API Key : ", process.env.GEMINI_API_KEY)
+
 
 
 import connectDB from "../config/database"
@@ -26,7 +25,7 @@ const startServer = async()=>{
 
         app.listen(process.env.PORT, ()=>{
             console.log(`Server is running on port http://localhost:${process.env.PORT}`)
-            console.log()
+            
 
         })
 
