@@ -12,6 +12,7 @@ import NotFound from "../pages/NotFound";
 import ProtectedRoute from "./ProtectedRoute";
 import DashboardLayout from "../layouts/DashboardLayout";
 import ResumeDetails from "../pages/ResumeDetails";
+import JobMatch from "../pages/JobMatcher";
 
 
 export default function AppRouter() {
@@ -60,6 +61,8 @@ export default function AppRouter() {
                     </ProtectedRoute>}/>
 
                     <Route path="*" element={<NotFound/>}/>
+
+                    <Route path="/job-match" element={<JobMatch/>}/>
 
 
 
